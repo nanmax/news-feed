@@ -1,0 +1,37 @@
+{
+  "name": "news-feed-frontend",
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "installCommand": "npm ci",
+  "devCommand": "npm start",
+  "framework": "create-react-app",
+  "regions": ["sin1"],
+  "env": {
+    "REACT_APP_API_URL": "https://news-feed-backend-0uub.onrender.com/api"
+  },
+  "functions": {},
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/service-worker.js",
+      "headers": [
+        {
+          "key": "cache-control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
