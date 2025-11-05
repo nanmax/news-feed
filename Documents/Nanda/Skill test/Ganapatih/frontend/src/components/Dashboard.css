@@ -1,0 +1,57 @@
+.dashboard {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.dashboard-main {
+  padding: 32px 20px;
+}
+
+.dashboard-container {
+  max-width: 1400px; /* Increased max width */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  align-items: start;
+}
+
+.dashboard-left {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 600px; /* Increased minimum width untuk feed */
+}
+
+.dashboard-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-container {
+    grid-template-columns: 1fr 280px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    padding: 20px 15px;
+  }
+  
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .dashboard-left {
+    gap: 20px;
+    min-width: 0; /* Remove min-width on mobile */
+  }
+  
+  .dashboard-right {
+    order: -1; /* Show user card above posts on mobile */
+  }
+}
