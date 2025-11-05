@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export interface User {
   id: number;
   username: string;
@@ -50,7 +52,7 @@ export interface FeedResponse {
   posts: PostResponse[];
 }
 
-export interface AuthRequest extends Express.Request {
+export interface AuthRequest extends Request {
   user?: {
     id: number;
     username: string;
