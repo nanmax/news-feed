@@ -2,14 +2,19 @@
 # exit on error
 set -o errexit
 
-# Install dependencies
+echo "Installing dependencies..."
 npm ci
 
-# Build the project
+echo "Building TypeScript project..."
 npm run build
+
+echo "Build completed successfully!"
 
 # Run database migrations if needed
 if [ "$DATABASE_URL" ]; then
   echo "Running database migrations..."
   npm run migrate
+  echo "Migrations completed!"
+else
+  echo "No DATABASE_URL found, skipping migrations"
 fi

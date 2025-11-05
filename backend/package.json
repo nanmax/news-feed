@@ -28,17 +28,17 @@
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^4.2.1",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.9.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
-    "@types/node": "^20.9.0",
     "@types/pg": "^8.10.7",
     "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "ts-node": "^10.9.1"
   }
 }
