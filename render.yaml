@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: news-feed-backend
+    env: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    autoDeploy: false
+
+  - type: pserv
+    name: news-feed-database
+    env: postgres
+    plan: free
+    databaseName: news_feed_db
+    databaseUser: postgres

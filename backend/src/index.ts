@@ -36,7 +36,7 @@ const rateLimitMiddleware = (req: express.Request, res: express.Response, next: 
 app.use(helmet());
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.com'] 
+    ? (process.env.ALLOWED_ORIGINS?.split(',') || ['https://news-feed-1u2wokysp-nanmaxs-projects.vercel.app'])
     : ['http://localhost:3000', 'http://127.0.0.1:3000'],
   credentials: true,
 }));
