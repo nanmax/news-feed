@@ -34,12 +34,40 @@ const rateLimitMiddleware = (req: express.Request, res: express.Response, next: 
 };
 
 app.use(helmet());
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? (process.env.ALLOWED_ORIGINS?.split(',') || ['https://news-feed-1u2wokysp-nanmaxs-projects.vercel.app'])
-    : ['http://localhost:3000', 'http://127.0.0.1:3000'],
+
+// CORS Configuration with better error handling
+const corsOptions = {
+  origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+    console.log('CORS Origin:', origin); // Debug log
+    
+    // Allow requests with no origin (mobile apps, etc.)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = process.env.NODE_ENV === 'production' 
+      ? (process.env.ALLOWED_ORIGINS?.split(',') || [
+          'https://news-feed-1u2wokysp-nanmaxs-projects.vercel.app',
+          'https://news-feed-50swxy1fn-nanmaxs-projects.vercel.app'
+        ])
+      : ['http://localhost:3000', 'http://127.0.0.1:3000'];
+    
+    // Check if origin is allowed or matches Vercel pattern
+    const isVercelDomain = /^https:\/\/.*\.vercel\.app$/.test(origin);
+    const isAllowed = allowedOrigins.includes(origin) || isVercelDomain;
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      console.error('CORS Error: Origin not allowed:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200 // For legacy browser support
+};
+
+app.use(cors(corsOptions));
 app.use(rateLimitMiddleware);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
